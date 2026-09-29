@@ -7,7 +7,7 @@ on:
 
 env:
   SLN_PATH: ExampleConsoleVb.sln
-  POLARIS_SERVER_URL: https://polaris.blackduck.com
+  POLARIS_SERVER_URL: https://poc.polaris.blackduck.com
   POLARIS_ACCESS_TOKEN: ${{ secrets.POLARIS_ACCESS_TOKEN_NEW }}
 
 jobs:
