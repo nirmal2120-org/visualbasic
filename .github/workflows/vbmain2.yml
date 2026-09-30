@@ -1,0 +1,41 @@
+name: Polaris VB Scan
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+env:
+  SLN_PATH: ExampleConsoleVb.sln
+  POLARIS_SERVER_URL: https://poc.polaris.blackduck.com
+  POLARIS_ACCESS_TOKEN: ${{ secrets.POLARIS_ACCESS_TOKEN_NEW }}
+
+jobs:
+  polaris:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - uses: NuGet/setup-nuget@v2
+
+      - name: Restore
+        run: nuget restore $env:SLN_PATH
+
+      - name: Verify build
+        run: msbuild $env:SLN_PATH -t:Rebuild -p:TargetFrameworkVersion=v4.8
+
+      - name: Polaris Scan
+        uses: blackduck-inc/black-duck-security-scan@v2
+        with:
+          polaris_server_url: ${{ env.POLARIS_SERVER_URL }}
+          polaris_access_token: ${{ env.POLARIS_ACCESS_TOKEN }}
+          polaris_application_name: PIFSS-Demo
+          polaris_project_name: visualbasic
+          polaris_branch_name: ${{ github.ref_name }}
+          polaris_assessment_types: 'SAST,SCA'
+          coverity_build_command: msbuild ${{ env.SLN_PATH }} -t:Rebuild -p:TargetFrameworkVersion=v4.8
+          coverity_clean_command: msbuild ${{ env.SLN_PATH }} -t:Clean
+          github_token: ${{ secrets.GITHUB_TOKEN }}
