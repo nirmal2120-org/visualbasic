@@ -34,8 +34,8 @@ jobs:
           polaris_access_token: ${{ env.POLARIS_ACCESS_TOKEN }}
           polaris_application_name: PIFSS-Demo2
           polaris_project_name: visualbasic2
-          polaris_test_sast_location: "HUB"
-          polaris_test_sca_location: "HUB"
+          polaris_test_sast_location: "local"
+          polaris_test_sca_location: "local"
           polaris_branch_name: main
           polaris_assessment_types: 'SAST,SCA'
           coverity_build_command: msbuild ${{ env.SLN_PATH }} -t:Rebuild -p:TargetFrameworkVersion=v4.8
