@@ -32,8 +32,8 @@ jobs:
         with:
           polaris_server_url: ${{ env.POLARIS_SERVER_URL }}
           polaris_access_token: ${{ env.POLARIS_ACCESS_TOKEN }}
-          polaris_application_name: PIFSS-Demo
-          polaris_project_name: visualbasic
+          polaris_application_name: PIFSS-Demo1
+          polaris_project_name: visualbasic1
           polaris_branch_name: ${{ github.ref_name }}
           polaris_assessment_types: 'SAST,SCA'
           coverity_build_command: msbuild ${{ env.SLN_PATH }} -t:Rebuild -p:TargetFrameworkVersion=v4.8
